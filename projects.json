@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "bx-code-alt",
+    "title": "Web Development",
+    "description": "Building responsive, modern websites with clean code and optimized performance for all devices.",
+    "link": "web-projects.html"
+  },
+  {
+    "icon": "bx-analyse",
+    "title": "AI/ML Development",
+    "description": "Building intelligent systems using Artificial Intelligence and Machine Learning for automation and data-driven insights.",
+    "link": "ai-ml-projects.html"
+  },
+  {
+    "icon": "bx-code",
+    "title": "Java & Python Expertise",
+    "description": "Developing robust applications and backend systems using Java and Python for scalable and high-performance solutions.",
+    "link": "java-python-projects.html"
+  }
+]

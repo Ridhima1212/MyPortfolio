@@ -1,0 +1,175 @@
+/* RESET + GLOBAL SETTINGS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  scroll-behavior: smooth;
+  font-family: "Poppins", sans-serif;
+}
+
+/* THEME COLORS */
+:root {
+  --bg-color: linear-gradient(12deg, black, rgb(82, 83, 85));
+  --card-bg: rgba(20, 20, 20, 0.85);
+  --accent-color:linear-gradient(
+    83deg,
+    rgba(255, 179, 0, 1) 22%,
+    rgba(255, 235, 163, 1) 45%,
+    rgba(255, 166, 0, 1) 89%);
+  --text-color: #fff;
+  --muted-text: #cfcfcf;
+  --glow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+/* BODY */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+}
+
+/* HEADER */
+.project-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.project-header h1 {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  text-shadow: var(--glow);
+}
+
+.project-header p {
+  margin-top: 0.8rem;
+  color: var(--muted-text);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-inline: auto;
+  line-height: 1.6;
+}
+
+/* PROJECT GALLERY */
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7rem;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: center;
+}
+
+/* 📱 For smaller screens (like mobile or tablets) */
+@media (max-width: 768px) {
+  .project-gallery {
+    grid-template-columns: 1fr; /* 1 card per row on small screens */
+  }
+}
+
+
+/* PROJECT CARD */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  min-height: 500px;  /* ✅ Minimum height (never smaller than this) */
+  width: 100%;        /* ✅ Auto-fit inside the grid column */
+  max-width: 600px;   /* ✅ Prevent it from stretching too wide */
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+}
+
+.project-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* CARD CONTENT */
+.project-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* evenly push content + buttons apart */
+  height: 45%;
+  padding: 1.5rem;
+}
+
+.project-card-content h2 {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+  text-shadow: var(--glow);
+}
+
+.project-card-content p {
+  color: var(--muted-text);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* BUTTONS */
+.project-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: auto; /* pushes buttons to the bottom */
+}
+
+.project-buttons a {
+  font-size: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  color: var(--text-color);
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.project-buttons a:hover {
+  background: var(--accent-color);
+  color: black;
+  box-shadow: var(--glow);
+}
+
+.project-buttons .bx {
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  display: inline-block;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: 1px solid var(--accent-color);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  background: var(--accent-color);
+  color: black;
+  box-shadow: var(--glow);
+}

@@ -1,0 +1,1264 @@
+/* RESET + VARIABLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  scroll-behavior: smooth;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --bg-color: linear-gradient(12deg, black, rgb(82, 83, 85));
+  --second-bg-color: rgb(0, 0, 0);
+  --text-color: white;
+
+  /* === Gold Theme (Adjusted) === */
+  /* This is your gradient for backgrounds */
+  --main-color: linear-gradient(
+    83deg,
+    rgba(255, 179, 0, 1) 22%,
+    rgba(255, 235, 163, 1) 45%,
+    rgba(255, 166, 0, 1) 89%
+  );
+  
+  /* ADDED: Solid gold color for borders, text, and shadows */
+  --main-color-solid: rgb(255, 179, 0);
+  
+  /* ADDED: Tints for transparent backgrounds and glow effects */
+  --main-color-tint-light: rgba(255, 179, 0, 0.1);
+  --main-color-tint-medium: rgba(255, 179, 0, 0.15);
+  --main-color-tint-dark: rgba(255, 179, 0, 0.3);
+
+  /* Glow effect - MUST use a solid color */
+  --glow: 0 0 25px var(--main-color-solid);
+
+  --font-xl: 7rem;
+  --font-lg: 3.5rem;
+  --font-md: 2rem;
+  --font-sm: 1.6rem;
+}
+
+/* BASE */
+html {
+  font-size: 70%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* HEADER */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 60px;
+  background: rgba(0, 0, 0, 0.378);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 5;
+}
+
+.logo {
+  font-size: 3rem;
+  color: var(--text-color);
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.logo span {
+  /* This uses the gradient, but needs background-clip to work */
+  /* If you want solid gold text, use: color: var(--main-color-solid); */
+  background: var(--main-color);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--glow);
+}
+
+/* Navbar (Consolidated) */
+.navbar {
+  display: flex;
+  gap: 4rem;
+}
+
+.navbar a {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: 0.3s ease;
+  position: relative;
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  background: var(--main-color); /* Gradient OK */
+  bottom: -5px;
+  left: 0;
+  transition: width 0.3s ease;
+  box-shadow: var(--glow);
+}
+
+.navbar a:hover::after,
+.navbar a.active::after {
+  width: 100%;
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 10px;
+}
+
+.hamburger {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--main-color-solid); /* Use solid color for thin bar */
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow);
+}
+
+/* Active State (Hamburger Animation) */
+.menu-toggle.active .hamburger span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active .hamburger span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* SECTIONS */
+section {
+  min-height: 100vh;
+  padding: 10rem 12% 10rem;
+}
+
+/* Section Header (Consolidated) */
+.section-header {
+  text-align: center;
+  margin-bottom: 6rem;
+  position: relative;
+}
+
+.section-title {
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, white 50%, var(--main-color-solid) 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  position: relative;
+}
+
+.section-title span {
+  background: var(--main-color); /* Gradient Text OK */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--glow);
+}
+
+.section-subtitle {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-divider {
+  width: 100px;
+  height: 4px;
+  background: var(--main-color); /* Gradient OK */
+  margin: 0 auto;
+  box-shadow: var(--glow);
+  position: relative;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 4px solid var(--main-color-solid); /* FIXED: Use solid color */
+  box-shadow: var(--glow);
+  top: -8px;
+}
+
+.section-divider::before {
+  left: -30px;
+  border-radius: 50% 0 0 50%;
+  border-right: none;
+}
+
+.section-divider::after {
+  right: -30px;
+  border-radius: 0 50% 50% 0;
+  border-left: none;
+}
+
+/* Section Header Animation */
+.section-header:hover .section-title {
+  animation: titleGlow 1.5s ease-in-out infinite alternate;
+}
+
+.section-header:hover .section-divider {
+  animation: dividerPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 10px var(--main-color-tint-dark); /* FIXED: Use gold tint */
+  }
+  100% {
+    text-shadow: var(--glow); /* FIXED: Use solid glow variable */
+  }
+}
+
+@keyframes dividerPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Home Section */
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15rem;
+  background: linear-gradient(
+    135deg,
+    black 0%,
+    rgb(0, 0, 0) 70%,
+    rgb(0, 0, 0) 100%
+  );
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  justify-content: center;
+  margin-top:3rem ;
+  margin-left:5rem;
+  margin-right:5rem;
+}
+
+.home-content h1 {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-top: 1.5rem;
+  line-height: 1;
+}
+
+.home-content h3 {
+  margin: 1rem 0 2rem;
+  font-size: var(--font-lg);
+}
+
+.home-content p {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.8;
+  max-width: 1000px;
+}
+
+/* Default span color */
+span {
+  color: var(--main-color-solid); /* FIXED: Use solid color for text */
+}
+
+/* TYPEWRITER EFFECT — Smooth & Polished */
+.typewriter {
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  width: fit-content;
+  /* smoother flow */
+  transition: all 0.3s ease-in-out;
+  animation: blinkCursor 1s step-end infinite;
+  will-change: border-color, opacity;
+}
+
+/* smoother cursor blink */
+@keyframes blinkCursor {
+  0%,
+  100% {
+    border-color: var(--main-color-solid); /* FIXED: Use solid color */
+    opacity: 1;
+  }
+  50% {
+    border-color: transparent;
+    opacity: 0.7;
+  }
+}
+
+/* optional: subtle fade-in for new text */
+.typewriter-text {
+  display: inline-block;
+  transition: opacity 0.3s ease-in-out, transform 0.25s ease;
+}
+
+.typewriter-text.enter {
+  opacity: 0;
+  transform: translateY(5px);
+  animation: fadeInText 0.4s ease forwards;
+}
+
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* IMAGE + ANIMATION */
+.home-image {
+  border-radius: 50%;
+}
+
+.home-image img {
+  position: relative;
+  top: 3rem;
+  width: 32vw;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: var(--glow);
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+  animation: float 3s ease-in-out infinite;
+}
+
+.home-image img:hover {
+  box-shadow: var(--glow), 0 0 50px var(--main-color-solid),
+    0 0 100px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* SOCIAL ICONS */
+.social-icons {
+  display: flex;
+  gap: 1.2rem;
+  margin: 3rem 0;
+}
+
+.social-icons a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  background: transparent;
+  border: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  font-size: 2.5rem;
+  border-radius: 50%;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  transition: 0.3s ease-in-out;
+}
+
+.social-icons a:hover {
+  color: var(--text-color);
+  transform: scale(1.3) translateY(-5px);
+  box-shadow: var(--glow);
+  background: var(--main-color); /* Gradient OK */
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 1rem 2.8rem;
+  background: var(--main-color);
+  box-shadow: var(--glow);
+  border-radius: 4rem;
+  font-size: var(--font-sm);
+  color: black;
+  border: 2px solid transparent;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover  {
+  background: var(--main-color);
+  color: black;
+  transform: scale(1.15) translateY(-3px);
+  box-shadow: 0 0 30px var(--main-color-solid);
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* ✅ Perfect circular LinkedIn button */
+.linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;       /* fixed width */
+  height: 4.5rem;      /* fixed height */
+  background: var(--main-color);
+  color: black;         /* black icon color */
+  border: 2px solid var(--main-color-solid);
+  border-radius: 50%;   /* makes it circular */
+  font-size: 2rem;      /* size of the icon */
+  transition: 0.3s ease-in-out;
+  box-shadow: var(--glow);
+}
+
+.linkedin-btn:hover {
+  background: var(--main-color);
+  color: black;
+  transform: scale(1.15) translateY(-3px);
+  box-shadow: 0 0 30px var(--main-color-solid);
+}
+
+
+/* CV Button Styles */
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1rem 2.8rem;
+  background: var(--main-color-tint-light); /* FIXED: Use gold tint */
+  border: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  border-radius: 4rem;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  margin-top: 2rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 15px var(--main-color-tint-dark); /* FIXED: Use gold tint */
+  letter-spacing: 0.1rem;
+}
+
+.btn-cv:hover {
+  background: var(--main-color); /* Gradient OK */
+  color: black;
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.btn-cv i {
+  font-size: 1.8rem;
+}
+
+/* ===== Education Section ===== */
+.education {
+  background: linear-gradient(135deg, #0a1a22 0%, #000 100%);
+  padding: 8rem 10%;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* ===== Timeline ===== */
+.timeline-container {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: var(--main-color-solid); /* Use solid color for thin line */
+  box-shadow: 0 0 20px var(--main-color-solid); /* FIXED: Use solid color */
+  z-index: 1;
+}
+
+/* ===== Items ===== */
+.timeline-item {
+  position: relative;
+  width: 100%;
+  margin-bottom: 7rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 15px;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  background: var(--main-color-solid); /* Use solid color for dot */
+  border-radius: 50%;
+  box-shadow: 0 0 25px var(--main-color-solid); /* FIXED: Use solid color */
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+/* ===== Left/Right Boxes ===== */
+.timeline-content {
+  position: relative;
+  width: 45%;
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  border-radius: 1.8rem;
+  box-shadow: 0 0 20px var(--main-color-tint-light); /* FIXED: Use gold tint */
+  transition: all 0.4s ease;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Alternate positioning */
+.timeline-content.left {
+  text-align: right;
+  margin-right: 55%;
+}
+
+.timeline-content.right {
+  text-align: left;
+  margin-left: 55%;
+}
+
+/* ===== Text ===== */
+.timeline-date {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  margin-bottom: 1rem;
+}
+
+.timeline-content h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-content p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.institution {
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+/* ===== Tech Stack ===== */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-content.right .tech-stack {
+  justify-content: flex-start;
+}
+
+.tech-pill {
+  background: var(--main-color-tint-medium); /* FIXED: Use gold tint */
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  padding: 0.5rem 1.4rem;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  border: 1px solid var(--main-color-solid); /* FIXED: Use solid color */
+  font-weight: 600;
+}
+
+/* ===== Hover Animation ===== */
+.hidden-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, margin-top 0.4s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.timeline-content:hover .hidden-details {
+  max-height: 300px;
+  margin-top: 1.5rem;
+}
+
+.timeline-content:hover ~ .timeline-dot {
+  transform: translateX(-50%) scale(1.3);
+  box-shadow: 0 0 35px var(--main-color-solid),
+    0 0 60px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+/* ===== Button ===== */
+.btn-small {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.4rem;
+  background: transparent;
+  border: 1px solid var(--main-color-solid); /* FIXED: Use solid color */
+  border-radius: 2rem;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  transition: all 0.3s ease;
+}
+
+.btn-small:hover {
+  background: var(--main-color); /* Gradient OK */
+  color: #000;
+  box-shadow: 0 0 15px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+/* Services Section */
+.services {
+  background: linear-gradient(135deg, rgb(15, 34, 43) 0%, black 100%);
+  padding: 10rem 12% 10rem;
+}
+
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+
+.service-box {
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid var(--main-color-solid); /* FIXED: Use solid color */
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 10px var(--main-color-solid); /* FIXED: Use solid color */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.service-box:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--glow), 0 0 50px var(--main-color-solid); /* FIXED: Use solid color */
+  border-color: white;
+}
+
+.service-icon {
+  font-size: 5rem;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.service-box:hover .service-icon {
+  transform: rotateY(360deg);
+  color: white;
+}
+
+.service-box h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-box p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.service-box .btn {
+  background: transparent;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  border: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  margin-top: auto;
+}
+
+.service-box .btn:hover {
+  background: var(--main-color); /* Gradient OK */
+  color: black;
+}
+
+/* Testimonials Section */
+.testimonials {
+  background: linear-gradient(135deg, black 0%, rgb(15, 34, 43) 100%);
+  padding: 10rem 12% 10rem;
+}
+
+.testimonials-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.testimonial-box {
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid var(--main-color-solid); /* FIXED: Use solid color */
+  border-radius: 2rem;
+  padding: 3rem;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 10px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.testimonial-box:hover {
+  transform: scale(1.03);
+  box-shadow: var(--glow), 0 0 30px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.testimonial-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.testimonial-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--main-color-solid); /* FIXED: Use solid color */
+  object-fit: cover;
+  box-shadow: 0 0 10px var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.testimonial-text {
+  text-align: left;
+}
+
+.testimonial-text p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.testimonial-info h4 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-info p {
+  font-size: 1.4rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.testimonial-stars {
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  font-size: 1.6rem;
+}
+
+/* Add Review Section (Consolidated) */
+.add-review {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5rem 12%;
+  border-top: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  color: #fff;
+  text-align: center;
+}
+
+.add-review h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+#reviewForm {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid var(--main-color-solid); /* FIXED: Use solid color */
+  background: transparent;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #aaa;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rating-stars .star {
+  font-size: 2rem;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.rating-stars .star.active {
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #4a90e2; /* Note: This is blue, change if needed */
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.star {
+  cursor: pointer;
+  color: #ccc;
+  font-size: 22px;
+}
+
+.star.active {
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+/* Contact Section */
+.contact {
+  background: linear-gradient(135deg, rgb(15, 34, 43) 0%, black 100%);
+  padding: 10rem 12% 10rem;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-box input,
+.input-box textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-box input:focus,
+.input-box textarea:focus {
+  border-color: var(--main-color-solid); /* FIXED: Use solid color */
+  box-shadow: var(--glow); /* FIXED: Use gold glow */
+}
+
+/* Note: .btn is already defined, this hover is slightly different */
+.contact-form .btn {
+  background: var(--main-color); /* FIXED: Use gold gradient */
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.contact-form .btn:hover {
+  background: var(--main-color); /* Gradient OK */
+  transform: scale(1.05);
+  box-shadow: 0 0 50px var(--main-color-solid); /* FIXED: Use solid color glow */
+}
+
+/* Footer */
+.footer {
+  background: var(--second-bg-color);
+  padding: 3rem 12%;
+  border-top: 1px solid var(--main-color-tint-light); /* FIXED: Use gold tint */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-logo .logo {
+  font-size: 2.5rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  color: var(--text-color);
+  font-size: 1.6rem;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  text-shadow: var(--glow);
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-social a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  background: var(--main-color-tint-light); /* FIXED: Use gold tint */
+  border: 1px solid var(--main-color-solid); /* FIXED: Use solid color */
+  border-radius: 50%;
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+  font-size: 1.8rem;
+  transition: 0.3s;
+}
+
+.footer-social a:hover {
+  background: var(--main-color); /* Gradient OK */
+  color: var(--second-bg-color);
+  box-shadow: var(--glow);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--main-color-tint-light); /* FIXED: Use gold tint */
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dynamic Year */
+#year {
+  color: var(--main-color-solid); /* FIXED: Use solid color */
+}
+
+/* =================================== */
+/* CONSOLIDATED RESPONSIVE LAYOUTS 
+/* =================================== */
+
+/* --------------- */
+/* 1200px (HD+)   */
+/* --------------- */
+@media (max-width: 1200px) {
+  /* Global Spacing */
+  section {
+    padding: 10rem 8% 10rem;
+  }
+
+  /* Header Adjustments */
+  .header {
+    padding: 2rem 5%;
+  }
+
+  /* Home Section */
+  .home {
+    gap: 8rem;
+  }
+}
+
+/* ---------------- */
+/* 992px (Tablet)  */
+/* ---------------- */
+@media (max-width: 992px) {
+  /* Typography */
+  html {
+    font-size: 58%;
+  }
+
+  /* Section Spacing */
+  section {
+    padding: 10rem 6% 10rem;
+  }
+
+  /* Mobile Navigation */
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.5s ease;
+    z-index: 1000;
+    border-right: 3px solid var(--main-color-solid); /* FIXED: Use solid color */
+  }
+
+  .navbar.active {
+    left: 0;
+  }
+
+  .navbar a {
+    font-size: 2.2rem;
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+  }
+
+  .navbar a::after {
+    bottom: 0;
+  }
+
+  /* Stacked Home Layout */
+  .home {
+    flex-direction: column;
+    text-align: center;
+    gap: 4rem;
+  }
+
+  .home-content {
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .home-image img {
+    width: min(60vw, 280px);
+    margin-top: 3rem;
+  }
+
+  /* Timeline Adjustments */
+  .education .timeline-container::before {
+    left: 30px;
+    transform: none;
+  }
+
+  .education .timeline-dot {
+    left: 30px;
+    transform: none;
+  }
+
+  .education .timeline-content.left,
+  .education .timeline-content.right {
+    width: calc(100% - 70px);
+    margin: 0 0 4rem 70px; /* Overrides desktop margins */
+    text-align: left; /* Overrides .left's text-align */
+  }
+
+  .education .tech-stack {
+    justify-content: flex-start;
+  }
+}
+
+/* ----------------- */
+/* 768px (Mobile L) */
+/* ----------------- */
+@media (max-width: 768px) {
+  /* Section Spacing */
+  .education {
+    padding: 6rem 5%;
+  }
+
+  /* Section Headings */
+  .section-title {
+    font-size: 4.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.8rem;
+  }
+
+  /* Grid Layouts */
+  .services-container,
+  .testimonials-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .service-box {
+    padding: 2.5rem 2rem;
+  }
+
+  .education .timeline-content {
+    padding: 2.5rem 2rem;
+  }
+
+  /* Form Adjustments */
+  .input-box {
+    flex-direction: column; /* This might be for an old form */
+  }
+
+  /* CV Button */
+  .btn-cv {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ----------------- */
+/* 480px (Mobile S) */
+/* ----------------- */
+@media (max-width: 480px) {
+  /* Micro-Adjustments */
+  :root {
+    --font-xl: clamp(3.5rem, 10vw, 5rem);
+    --font-lg: clamp(2.5rem, 7vw, 3rem);
+  }
+
+  html {
+    font-size: 55%;
+  }
+
+  /* Header */
+  .header {
+    padding: 1.5rem 4%;
+  }
+
+  /* Section Headings */
+  .section-title {
+    font-size: 3.8rem;
+  }
+
+  /* Timeline Fix */
+  .education .timeline-container::before {
+    left: 15px;
+  }
+
+  .education .timeline-dot {
+    left: 15px;
+  }
+
+  .education .timeline-content.left,
+  .education .timeline-content.right {
+    width: calc(100% - 45px);
+    margin-left: 45px;
+    padding: 2rem 1.8rem;
+  }
+
+  /* Testimonial Stacking */
+  .testimonial-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+}
+
+/* ------------------- */
+/* 360px (Small Mobile) */
+/* ------------------- */
+@media (max-width: 360px) {
+  /* Ultra-Compact Mode */
+  .home-image img {
+    width: min(70vw, 220px);
+  }
+
+  .btn {
+    padding: 1rem 2rem;
+  }
+
+  .social-icons a {
+    width: 3.8rem;
+    height: 3.8rem;
+    font-size: 2rem;
+  }
+
+  .section-divider {
+    width: 70px;
+  }
+}
